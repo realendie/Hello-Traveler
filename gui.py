@@ -1,54 +1,46 @@
 from tkinter import *
 import tkinter as tk
-import customtkinter
+import customtkinter as ctk
 import subprocess
 import sys
 
-# widgets = Buttons, Text Boxes, Labels, Images, etc...
-# windows = container for widgets
+# Configure appearance mode (optional: 'System', 'Dark', 'Light')
+ctk.set_appearance_mode("Dark")  # Dark mode
+ctk.set_default_color_theme("blue")  # Default theme
 
+# Function to handle the submit button click
 def submit():
-   response = entry.get()
-   print(response)
-def submit(submit):
-   response = entry.get()
-   print(response)
+    response = entry.get()
+    print(response)
 
-window = Tk()
-window.geometry('420x210')
-window.title('Hello Traveller')
-window.config(background='#111111')
-window.bind('<Return>', submit)
+def submit_event(event):
+    submit()
 
-#logo = PhotoImage(file='')
-#window.iconphoto(True,logo)
+# Create the main application window
+window = ctk.CTk()
+window.geometry('420x250')
+window.title('Hello Traveler')
 
-terminal_prompt = Text(window, height=8)
-terminal_prompt.config(bg='black', fg='white')
-terminal_prompt.config(state=tk.DISABLED)
-terminal_prompt.pack()
+window.iconbitmap("Hello_Traveler_Logo.ico")
 
-entry = Entry()
-entry.config(font=('Monoscape', 15))
-entry.config(bg='Black')
-entry.config(fg='White')
-entry.config(width=15)
-entry.pack()
+# Create a read-only text box (terminal prompt)
+terminal_prompt = ctk.CTkTextbox(window, height=100, state="disabled")
+terminal_prompt.pack(pady=10)
 
-submit_button = Button(window,text='Submit')
-submit_button.config(command=submit)
-submit_button.config(font=('Monoscape', 10, 'bold'))
-submit_button.config(bg='#111111')
-submit_button.config(fg='white')
-submit_button.config(activebackground='#00ff00')
-submit_button.pack()
+# Create an entry box
+entry = ctk.CTkEntry(window, placeholder_text="Enter your text", width=200, font=("Monospace", 15))
+entry.pack(pady=5)
 
-quit_button = Button(window,text='Quit')
-quit_button.config(command=quit)
-quit_button.config(font=('Monoscape', 10, 'bold'))
-quit_button.config(bg='#111111')
-quit_button.config(fg='white')
-quit_button.config(activebackground='#ff0000')
-quit_button.pack()
+# Bind the Enter key to the submit function
+window.bind('<Return>', submit_event)
 
+# Create a Submit button
+submit_button = ctk.CTkButton(window, text='Submit', command=submit, font=("Monospace", 12, "bold"))
+submit_button.pack(pady=5)
+
+# Create a Quit button
+quit_button = ctk.CTkButton(window, text='Quit', command=window.quit, font=("Monospace", 12, "bold"), fg_color="red")
+quit_button.pack(pady=5)
+
+# Run the application
 window.mainloop()
